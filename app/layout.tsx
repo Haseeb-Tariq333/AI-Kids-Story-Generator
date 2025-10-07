@@ -6,11 +6,14 @@ import { ClerkProvider } from "@clerk/nextjs";
 
 const appFont = Nunito({subsets: ["latin"]});
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
   title: "Story Yetu",
   description: "Get the best from our AI stories",
-  viewport: "width=device-width, initial-scale=1",
-  
 };
 
 export default function RootLayout({

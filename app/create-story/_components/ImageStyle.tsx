@@ -36,31 +36,38 @@ function ImageStyle({userSelection}: any) {
   };
 
   return (
-    <div>
-      <label className="text-primary md:text-2xl text-xl font-semibold lg:text-4xl">
+    <div className="w-full">
+      <label className="block text-gray-800 text-xl font-medium mb-3">
         4. What style of image would you like to use?
       </label>
-      <div className="grid grid-cols-2 lg:grid-cols-3 gap-2 md:gap-5 mt-3 p-3">
-        {ageList.map((age, index) => (
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {ageList.map((style, index) => (
           <div
             key={index}
-            onClick={() => onUserSelect(age)}
-            className={`relative rounded-3xl  hover:cursor-pointer hover:grayscale-0 ease-in-out hover:scale-110 p-1 duration-200 ${
-              selectedStory === age.label
-                ? "grayscale-0 border-2 border-gray-600 scale-110"
-                : "grayscale"
+            onClick={() => onUserSelect(style)}
+            className={`relative group rounded-xl overflow-hidden cursor-pointer transition-all duration-300 transform hover:-translate-y-1 ${
+              selectedStory === style.label
+                ? 'ring-2 ring-teal-500 ring-offset-2'
+                : 'ring-1 ring-gray-200 hover:ring-teal-300'
             }`}
           >
-            <h2 className="absolute bottom-5 text-white font-bold text-xl md:text-2xl text-center">
-              {age.label}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 rounded-xl" />
+            <h2 className="absolute bottom-3 left-3 right-3 text-white font-semibold text-sm sm:text-base z-20">
+              {style.label}
             </h2>
+            <div className="absolute inset-0 bg-teal-500/10 group-hover:bg-teal-500/20 transition-colors duration-300 z-0" />
             <Image
-              src={age.imageUrl}
-              alt={age.label}
-              width={300}
-              height={400}
-              className="object-cover h-[120px] rounded-3xl"
+              src={style.imageUrl}
+              alt={style.label}
+              width={200}
+              height={150}
+              className="w-full h-32 object-cover rounded-xl"
             />
+            {style.isFree && (
+              <span className="absolute top-2 right-2 bg-teal-600 text-white text-xs font-medium px-2 py-1 rounded-full z-20">
+                Free
+              </span>
+            )}
           </div>
         ))}
       </div>

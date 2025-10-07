@@ -1,38 +1,42 @@
-import React from 'react'
-import { Card, CardHeader, CardBody, CardFooter } from "@nextui-org/card";
+import React from 'react';
+import Link from 'next/link';
+import { Card, CardFooter } from "@nextui-org/card";
 import { Button } from '@nextui-org/button';
 import Image from 'next/image';
-import { div } from 'framer-motion/client';
-import Link from 'next/link';
-
 
 function StoryItemCard({ story }: any) {
   return (
     <Link href={"/view-story/" + story.storyId}>
       <Card
-        isFooterBlurred
-        className="w-full h-[300px] hover:scale-105 transition-all cursor-pointer col-span-12 sm:col-span-5"
+        className="w-full h-[320px] overflow-hidden group relative rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2"
+        isPressable
+        isHoverable
       >
         <Image
-          alt="Card example background"
-          className="z-0 w-full h-full scale-125 -translate-y-6 object-cover"
+          alt={story.output.story_title || 'Story cover'}
+          className="z-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
           src={story.coverimage}
-          width={500}
-          height={500}
+          width={400}
+          height={320}
+          quality={80}
         />
-        <CardFooter className="absolute bg-white/30 bottom-0 border-t-1 border-zinc-100/50 z-10 justify-between">
-          <div>
-            <p className="text-black font-semibold">
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent z-10" />
+        <CardFooter className="absolute bottom-0 left-0 right-0 z-20 p-4">
+          <div className="w-full">
+            <h3 className="text-white font-bold text-lg line-clamp-2 mb-2">
               {story.output.story_title}
-            </p>
+            </h3>
+            <Button 
+              className="bg-teal-600 hover:bg-teal-700 text-white font-medium w-full transition-colors"
+              radius="md"
+              size="sm"
+            >
+              Read Story
+            </Button>
           </div>
-          <Button className="text-tiny" color="primary" radius="full" size="sm">
-            Read Book
-          </Button>
         </CardFooter>
       </Card>
     </Link>
   );
 }
-
 export default StoryItemCard

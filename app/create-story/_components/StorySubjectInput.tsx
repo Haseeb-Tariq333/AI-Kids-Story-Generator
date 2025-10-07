@@ -4,17 +4,19 @@ import { Textarea } from "@nextui-org/input";
 
 function StorySubjectInput({ userSelection }: any) {
   return (
-    <div>
-      <label className="text-primary md:text-2xl text-xl font-semibold lg:text-4xl">
+    <div className="w-full">
+      <label className="block text-gray-800 text-xl font-medium mb-3">
         1. What is your story about?
       </label>
       <Textarea
-        size="md"
-        placeholder="Write the subject of your story here"
+        size="lg"
+        variant="bordered"
+        placeholder="Write the subject of your story here..."
         classNames={{
-          input: "resize-y h-[200px]  md:text-xl  lg:text-2xl md:p-4 p-2",
+          input: "resize-y min-h-[180px] text-gray-700 text-lg p-4",
+          inputWrapper: "bg-white border-2 border-gray-200 hover:border-teal-400 focus:border-teal-500",
         }}
-        className="mt-3 max-w-lg"
+        className="w-full"
         onChange={(e) =>
           userSelection({
             fieldValue: e.target.value,

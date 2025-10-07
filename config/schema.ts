@@ -1,4 +1,3 @@
-
 import { serial, varchar, json, text, integer } from "drizzle-orm/pg-core";
 import { pgTable } from "drizzle-orm/pg-core";
 
@@ -22,7 +21,7 @@ export const Users = pgTable("Users", {
   name: varchar("name"),
   image: varchar("image"),
   role: varchar("role"),
-  credits: integer("credits").default(1),
+  credits: integer("credits").default(3),
 });
 export const Transactions = pgTable("Transactions", {
   id: serial("id").primaryKey(),

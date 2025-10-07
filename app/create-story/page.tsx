@@ -1,5 +1,7 @@
 "use client";
 import React, { useContext, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { LazyMotion, domAnimation } from "framer-motion";
 import StorySubjectInput from "./_components/StorySubjectInput";
 import StoryType from "./_components/StoryType";
 import AgeGroup from "./_components/AgeGroup";
@@ -156,36 +158,55 @@ function CreateStory() {
     }
   };
   return (
-    <div className="p-10 md:px-20 px:40">
+    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-amber-50 py-16 px-4 sm:px-6 lg:px-8">
       <ToastContainer />
-      <h2 className="text-primary font-extrabold text-3xl lg:text-[70px] text-center">
-        CREATE YOUR STORY
-      </h2>
-      <p className="lg:text-2xl text-lg text-primary text-center pt-5 md:pt-7 lg:pt-12">
-        Unleash Your Imagination with AI: Weave Captivating Stories Like Never
-        Before! One story at a time, let's create a world of our own.
-      </p>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-12 lg:mt-30">
-        {/* story subjec */}
-        <StorySubjectInput userSelection={onHandleUserSelection} />
-        {/* story type */}
-        <StoryType userSelection={onHandleUserSelection} />
-        {/* age group */}
-        <AgeGroup userSelection={onHandleUserSelection} />
-        {/* image type */}
-        <ImageStyle userSelection={onHandleUserSelection} />
-      </div>
-      <div className="flex justify-end my-10">
-        <Button
-          color="primary"
-          className="p-10 text-2xl"
-          onClick={GenerateStory}
-          disabled={loading}
+      <div className="max-w-6xl mx-auto">
+        <motion.div 
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          Generate Story
-        </Button>
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+            <span className="text-teal-600">Create Your</span>{' '}
+            <span className="text-amber-500">Story</span>
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+            Unleash Your Imagination with AI: Weave Captivating Stories Like Never
+            Before! One story at a time, let's create a world of our own.
+          </p>
+        </motion.div>
+
+        <motion.div 
+          className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-8 md:p-10 lg:p-12 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            <StorySubjectInput userSelection={onHandleUserSelection} />
+            <StoryType userSelection={onHandleUserSelection} />
+            <AgeGroup userSelection={onHandleUserSelection} />
+            <ImageStyle userSelection={onHandleUserSelection} />
+          </div>
+        </motion.div>
+
+        <motion.div 
+          className="flex justify-center md:justify-end"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+        >
+          <Button
+            className="bg-teal-600 hover:bg-teal-700 text-white text-lg md:text-xl font-semibold px-10 py-7 rounded-xl transition-all duration-300 transform hover:-translate-y-1"
+            onClick={GenerateStory}
+            disabled={loading}
+          >
+            {loading ? 'Generating...' : 'Generate Story'}
+          </Button>
+        </motion.div>
+        <CustomLoader isLoading={loading} />
       </div>
-      <CustomLoader isLoading={loading} />
     </div>
   );
 }

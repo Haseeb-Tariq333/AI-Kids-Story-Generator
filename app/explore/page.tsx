@@ -7,6 +7,8 @@ import StoryItemCard from "../dashboard/_components/StoryItemCard";
 import { toast, ToastContainer } from "react-toastify";
 import { Button } from "@nextui-org/button";
 import Loading from "../dashboard/_components/Loading";
+import { motion } from "framer-motion";
+import { LazyMotion, domAnimation } from "framer-motion";
 
 function Explore() {
   const [offset, setOffset] = useState<number>(0);
@@ -60,29 +62,69 @@ function Explore() {
   };
 
   return (
-    <div className="min-h-screen p-10 md:px-20 lg:px-40">
-          <ToastContainer />
+    <LazyMotion features={domAnimation}>
+      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-amber-50 py-12 px-4 sm:px-6 lg:px-8">
+        <ToastContainer />
         <Loading isLoading={loading} />
-      <h2 className="font-bold text-xl md:text-2xl lg:text-4xl text-primary">
-        Explore More Stories
-      </h2>
-      <div className="grid grid-cols-1 mt-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-10">
-        {stories.map((story, index) => (
-          <StoryItemCard story={story} key={index} />
-        ))}
-      </div>
-      <div className="w-full text-center flex justify-center mt-4">
-              {!loading && (
-            <Button
-          color="primary"
-          className="text-semibold text-white"
-          onClick={() => GetAllStories()} // Fetch more stories and increment offset
-          disabled={loading} 
+        
+        <motion.div 
+          className="max-w-7xl mx-auto"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
         >
-          {loading ? "Loading..." : "Get More"}
-        </Button>)}
+          <div className="text-center mb-12">
+            <motion.h2 
+              className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+            >
+              <span className="text-teal-600">Explore</span>{' '}
+              <span className="text-amber-500">Stories</span>
+            </motion.h2>
+            <motion.p 
+              className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+            >
+              Discover amazing stories created by our community
+            </motion.p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {stories.map((story, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 * index, duration: 0.5 }}
+              >
+                <StoryItemCard story={story} />
+              </motion.div>
+            ))}
+          </div>
+
+          <motion.div 
+            className="flex justify-center mt-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+          >
+            {!loading && stories.length > 0 && (
+              <Button
+                className="bg-teal-600 hover:bg-teal-700 text-white text-lg font-semibold px-8 py-6 rounded-xl transition-all duration-300 transform hover:-translate-y-1"
+                onClick={GetAllStories}
+                disabled={loading}
+              >
+                {loading ? "Loading..." : "Load More Stories"}
+              </Button>
+            )}
+          </motion.div>
+        </motion.div>
       </div>
-    </div>
+    </LazyMotion>
   );
 }
 

@@ -35,31 +35,37 @@ function StoryType({userSelection}: any) {
     })
   }
   return (
-    <div>
-      <label className="text-primary md:text-2xl text-xl font-semibold lg:text-4xl">
+    <div className="w-full">
+      <label className="block text-gray-800 text-xl font-medium mb-3">
         2. What type of story are you creating?
       </label>
-      <div className="grid grid-cols-2  lg:grid-cols-3 gap-2 lg:gap-5 mt-3 p-3 ">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {storyList.map((story: optionList, index) => (
           <div
             key={index}
             onClick={() => onUserSelect(story)}
-            className={`relative rounded-3xl  hover:cursor-pointer hover:grayscale-0 ease-in-out hover:scale-110 p-1 duration-200 ${
-              selectedStory === story.label
-                ? "grayscale-0 border-2 border-gray-600 scale-110"
-                : "grayscale"
+            className={`relative overflow-hidden rounded-xl cursor-pointer transition-all duration-300 transform hover:-translate-y-1 ${
+              selectedStory === story.label 
+                ? 'ring-2 ring-teal-500 ring-offset-2' 
+                : 'ring-1 ring-gray-200 hover:ring-teal-300'
             }`}
           >
-            <h2 className="absolute bottom-5 lg:left-6 text-white font-bold text-lg md:text-xl lg:text-2xl text-center">
+            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10 rounded-xl" />
+            <h2 className="absolute bottom-3 left-3 right-3 text-white font-semibold text-lg z-20">
               {story.label}
             </h2>
             <Image
               src={story.imageUrl}
               alt={story.label}
               width={300}
-              height={400}
-              className="object-cover h-[150px] md:h-[250px] rounded-3xl"
+              height={200}
+              className="w-full h-40 object-cover rounded-xl"
             />
+            {story.isFree && (
+              <span className="absolute top-2 right-2 bg-teal-600 text-white text-xs font-medium px-2 py-1 rounded-full z-20">
+                Free
+              </span>
+            )}
           </div>
         ))}
       </div>
